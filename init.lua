@@ -129,8 +129,8 @@ vim.diagnostic.config {
   underline = { severity = { min = vim.diagnostic.severity.WARN } },
 
   -- Can switch between these as you prefer
-  virtual_text = true, -- Text shows up at the end of the line
-  virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+  virtual_text = false, -- Text shows up at the end of the line
+  virtual_lines = true, -- Text shows up underneath the line, with virtual lines
 
   -- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
   jump = { float = true },
@@ -750,82 +750,29 @@ require('lazy').setup({
     },
   },
 
+  -- 'xiyaowong/transparent.nvim',
+
+  -- other styles: tokyonight, nightly, citruszest
   {
-    'flashcodes-themayankjha/fkthemes.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-telescope/telescope.nvim',
-      -- from FkThemes README
-      -- Material
-      'marko-cerovac/material.nvim',
-
-      -- Tokyonight
-      {
-        'folke/tokyonight.nvim',
-        config = function()
-          require('tokyonight').setup {
-            transparent = true,
-            styles = {
-              sidebars = 'transparent',
-              floats = 'transparent',
-            },
-          }
-        end,
-      },
-
-      -- Rose Pine
-      { 'rose-pine/neovim', name = 'rose-pine' },
-
-      -- Catppuccin
-      {
-        'catppuccin/nvim',
-        name = 'catppuccin',
-        priority = 1000,
-        config = function()
-          require('catppuccin').setup {
-            flavour = 'mocha',
-            transparent_background = true,
-          }
-        end,
-      },
-
-      -- Others
-      'shaunsingh/moonlight.nvim',
-      'morhetz/gruvbox',
-      -- My own themes
-      'abhilash26/mapledark.nvim',
-      { 'Shatur/neovim-ayu', name = 'ayu' },
-      'luisiacc/gruvbox-baby',
-      'masisz/wisteria.nvim',
-      { 'miikanissi/modus-themes.nvim', name = 'modus' },
-      'zootedb0t/citruszest.nvim',
-      { 'bluz71/vim-nightfly-colors', name = 'nightfly' },
-      { 'bluz71/vim-moonfly-colors', name = 'moonfly' },
-      'sainnhe/sonokai',
-    },
+    'bluz71/vim-moonfly-colors',
+    name = 'moonfly',
+    priority = 1000,
     config = function()
-      require('fkthemes').setup {
-        themes = {
-          'citruszest',
-          'nightfly',
-          'moonfly',
-          'sonokai',
-          'tokyonight',
-          'catppuccin',
-          'modus',
-          'gruvbox',
-          'mapledark',
-          'ayu',
-          'gruvbox-baby',
-          'wisteria',
-          'rose-pine',
-          'material',
-          'moonlight',
-        },
-        default_theme = 'tokyonight',
-        transparent_background = true,
-      }
+      vim.g.moonflyTransparent = true
+      vim.g.moonflyUnderlineMatchParen = true
+
+      -- vim.g.moonflyNormalFloat = true
+      -- vim.o.winborder = 'single'
+
+      -- vim.g.moonflyNormalPmenu = true
+      -- vim.o.pumborder = 'single'
+
+      vim.g.moonflyCursorColor = true
+
+      vim.g.moonflyWinSeparator = 2
+      vim.opt.fillchars = { horiz = '━', horizup = '┻', horizdown = '┳', vert = '┃', vertleft = '┫', vertright = '┣', verthoriz = '╋' }
+
+      vim.cmd.colorscheme 'moonfly'
     end,
   },
 
