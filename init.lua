@@ -580,12 +580,16 @@ require('lazy').setup({
                 checkThirdParty = false,
                 -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
                 --  See https://github.com/neovim/nvim-lspconfig/issues/3189
-                -- library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
-                --   '${3rd}/luv/library',
-                --   '${3rd}/busted/library',
-                -- }),
+                -- library = vim.tbl_filter(
+                --   function(d) return not d:match(vim.fn.stdpath 'config' .. '/?a?f?t?e?r?') end,
+                --   vim.api.nvim_get_runtime_file('', true)
+                -- ),
+                library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
+                  '${3rd}/luv/library',
+                  '${3rd}/busted/library',
+                }),
                 --  The above made autocomplete in Lua really SLOW. Use the below vvv
-                library = { vim.env.VIMRUNTIME },
+                -- library = { vim.env.VIMRUNTIME },
               },
             })
           end,
@@ -727,7 +731,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = false, auto_show_delay_ms = 0 },
       },
 
       sources = {
@@ -749,54 +753,6 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
-  -- 'xiyaowong/transparent.nvim',
-
-  -- other styles: tokyonight, nightly, citruszest
-  {
-    'bluz71/vim-moonfly-colors',
-    name = 'moonfly',
-    priority = 1000,
-    config = function()
-      vim.g.moonflyTransparent = true
-      vim.g.moonflyUnderlineMatchParen = true
-
-      -- vim.g.moonflyNormalFloat = true
-      -- vim.o.winborder = 'single'
-
-      -- vim.g.moonflyNormalPmenu = true
-      -- vim.o.pumborder = 'single'
-
-      vim.g.moonflyCursorColor = true
-
-      vim.g.moonflyWinSeparator = 2
-      vim.opt.fillchars = { horiz = '━', horizup = '┻', horizdown = '┳', vert = '┃', vertleft = '┫', vertright = '┣', verthoriz = '╋' }
-
-      vim.cmd.colorscheme 'moonfly'
-    end,
-  },
-
-  -- { -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is.
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   'folke/tokyonight.nvim',
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   config = function()
-  --     ---@diagnostic disable-next-line: missing-fields
-  --     require('tokyonight').setup {
-  --       styles = {
-  --         comments = { italic = false }, -- Disable italics in comments
-  --       },
-  --     }
-  --
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     vim.cmd.colorscheme 'tokyonight-night'
-  --   end,
-  -- },
 
   -- Highlight todo, notes, etc in comments
   {
@@ -898,7 +854,7 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
